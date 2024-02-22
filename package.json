@@ -1,0 +1,23 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "Receipe Application",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meShailu/Forkify.git"
+  },
+  "author": "Kanwar Shailu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meShailu/Forkify/issues"
+  },
+  "homepage": "https://github.com/meShailu/Forkify#readme",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.2.1",
+    "parcel": "^2.2.1"
+  }
+}
