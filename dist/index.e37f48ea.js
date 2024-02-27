@@ -599,7 +599,7 @@ const controlRecipes = async function() {
         //2 Rendering receip
         (0, _receipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (err) {
-        alert(err);
+        (0, _receipeViewJsDefault.default).renderError();
     }
 };
 const init = function() {
@@ -2485,7 +2485,7 @@ const loadRecipe = async function(id) {
         console.log(state.recipe);
     } catch (err) {
         //temp err handling
-        console.log(`${err}\u{1F4A3}\u{1F4A3}\u{1F4A3}\u{1F4A3}\u{1F4A3}`);
+        throw err;
     }
 };
 
@@ -2535,6 +2535,8 @@ var _fractional = require("fractional");
 class RecipeView {
     #parentElement = document.querySelector(".recipe");
     #data;
+    #errormessage = "We could not find that recipe.Please try another one ";
+    #successmessage;
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
@@ -2552,7 +2554,7 @@ class RecipeView {
     </svg>
   </div> 
   `;
-        this.#parentElement.innerHTML = "";
+        this.#clear();
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     };
     addHandlerRender(handler) {
@@ -2560,6 +2562,30 @@ class RecipeView {
             "hashchange",
             "load"
         ].forEach((ev)=>window.addEventListener(ev, handler));
+    }
+    renderError(message = this.#errormessage) {
+        const markup = `<div class="error">
+    <div>
+      <svg>
+        <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+      </svg>
+    </div>
+    <p>${message}</p>
+  </div>`;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    renderMessage(message = this.#successmessage) {
+        const markup = `<div class="message">
+    <div>
+      <svg>
+        <use href="${(0, _iconsSvgDefault.default)}#icon-alert-smile"></use>
+      </svg>
+    </div>
+    <p>${message}</p>
+  </div>`;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     }
     #generateMarkup() {
         return ` <figure class="recipe__fig">
